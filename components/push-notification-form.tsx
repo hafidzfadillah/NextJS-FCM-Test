@@ -39,6 +39,42 @@ type NotificationHistory = {
 // Test templates for quick testing
 const testTemplates = [
   {
+    name: "Welcome Message",
+    title: "Welcome to Our App!",
+    body: "Thank you for joining us. Get started by exploring the features and setting up your profile.",
+    payload: '{"action": "onboarding", "screen": "welcome", "step": 1}',
+  },
+  {
+    name: "System Update",
+    title: "App Update Available",
+    body: "A new version of the app is available with exciting new features and improvements.",
+    payload: '{"action": "update", "version": "2.1.0", "required": false}',
+  },
+  {
+    name: "Reminder",
+    title: "Don't Forget!",
+    body: "You have pending tasks that need your attention. Tap to view details.",
+    payload: '{"action": "open_screen", "screen": "tasks", "highlight": "pending"}',
+  },
+  {
+    name: "Promotional",
+    title: "Special Offer - 50% Off!",
+    body: "Limited time offer just for you. Don't miss out on amazing deals ending soon.",
+    payload: '{"action": "promotion", "offer_id": "SAVE50", "expires": "2024-12-31"}',
+  },
+  {
+    name: "Security Alert",
+    title: "Security Notice",
+    body: "We detected a new login to your account. If this wasn't you, please secure your account immediately.",
+    payload: '{"action": "security", "type": "login_alert", "location": "New York, US"}',
+  },
+  {
+    name: "Achievement",
+    title: "Congratulations! 🎉",
+    body: "You've reached a new milestone! Keep up the great work and unlock more rewards.",
+    payload: '{"action": "achievement", "badge": "week_streak", "points": 100}',
+  },
+  {
     name: "Test Notification",
     title: "Test Notification",
     body: "This is a test push notification to verify your setup is working correctly.",
@@ -552,7 +588,9 @@ export default function PushNotificationForm() {
               <div
                 key={item.id}
                 className={`p-2 rounded border text-sm ${
-                  item.status === "success" ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"
+                  item.status === "success" 
+                    ? "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-800" 
+                    : "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800"
                 }`}
               >
                 <div className="flex items-start justify-between">
@@ -560,7 +598,7 @@ export default function PushNotificationForm() {
                     <div className="font-medium text-sm truncate">{item.title}</div>
                     <div className="text-muted-foreground text-xs mt-0.5 line-clamp-1">{item.body}</div>
                     {item.payload && (
-                      <div className="text-xs text-blue-600 mt-1 font-mono bg-blue-50 px-1 py-0.5 rounded truncate">
+                      <div className="text-xs text-blue-600 dark:text-blue-400 mt-1 font-mono bg-blue-50 dark:bg-blue-950/30 px-1 py-0.5 rounded truncate">
                         {item.payload.length > 40 ? `${item.payload.slice(0, 40)}...` : item.payload}
                       </div>
                     )}
@@ -576,11 +614,13 @@ export default function PushNotificationForm() {
                       </span>
                     </div>
                     {item.error && (
-                      <div className="text-red-600 text-xs mt-1 truncate">{item.error}</div>
+                      <div className="text-red-600 dark:text-red-400 text-xs mt-1 truncate">{item.error}</div>
                     )}
                   </div>
                   <div className={`ml-2 px-1.5 py-0.5 rounded text-xs flex-shrink-0 ${
-                    item.status === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+                    item.status === "success" 
+                      ? "bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300" 
+                      : "bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300"
                   }`}>
                     {item.status}
                   </div>
