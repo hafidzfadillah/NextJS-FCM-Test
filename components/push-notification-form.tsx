@@ -39,31 +39,6 @@ type NotificationHistory = {
 // Test templates for quick testing
 const testTemplates = [
   {
-    name: "Cashout",
-    title: "Cashout Request",
-    body: "Your cashout request has been approved. We're excited to have you.",
-    payload: '{"action": "cashout_detail", "type": "cashout", "id":"19"}',
-  },
-  {
-    name: "Overtime",
-    title: "Overtime Request",
-    body: "Your overtime request has been approved. We're excited to have you.",
-    payload: '{"action": "approval", "type": "overtime-request", "approval_type": "overtime", "id": "OT-2024-001", "employee_name": "John Doe", "date": "2024-01-15", "hours": "3"}',
-  },
-  {
-    name: "Attendance",
-    title: "Attendance Request",
-    body: "Your attendance request has been approved. We're excited to have you.",
-    payload: '{"action": "approval", "type": "attendance-request", "approval_type": "attendance", "id": "ATT-2024-001", "employee_name": "John Doe", "date": "2024-01-15", "hours": "3"}',
-  },
-  {
-    name: "Leave",
-    title: "Leave Request",
-    body: "Your leave request has been approved. We're excited to have you.",
-    payload: '{"action": "approval", "type": "timeoff-request", "approval_type": "timeoff", "id": "TO-2024-005", "employee_name": "Alex Chen", "start_date": "2024-01-25", "end_date": "2024-01-26", "reason": "Personal matters"}',
-  },
-    
-  {
     name: "Test Notification",
     title: "Test Notification",
     body: "This is a test push notification to verify your setup is working correctly.",
