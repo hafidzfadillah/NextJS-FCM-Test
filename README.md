@@ -72,12 +72,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Quick Templates
 
-Choose from pre-built templates including:
-- **Cashout** - Payment approval notifications
-- **Overtime** - Work hour approval requests
-- **Attendance** - Attendance correction requests
-- **Leave** - Time-off requests
-- **Test Notification** - Basic connectivity testing
+Choose from pre-built templates.
 
 ### Sending Notifications
 
