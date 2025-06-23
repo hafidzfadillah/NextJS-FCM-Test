@@ -1,6 +1,6 @@
 "use server"
 
-import { getFirebaseAdmin } from "@/lib/firebase-admin"
+import { getFirebaseAdmin, type FirebaseCredentials } from "@/lib/firebase-admin"
 
 type NotificationData = {
   title: string
@@ -8,11 +8,12 @@ type NotificationData = {
   targetType: "token" | "topic" | "multitoken"
   target: string
   payload?: string
+  firebaseCredentials: FirebaseCredentials
 }
 
 export async function sendPushNotification(data: NotificationData) {
   try {
-    const admin = getFirebaseAdmin()
+    const admin = getFirebaseAdmin(data.firebaseCredentials)
     const { title, body, targetType, target, payload } = data
 
     // Parse custom payload if provided

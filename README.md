@@ -1,10 +1,11 @@
 # FCM Push Notification Tester
 
-A modern, feature-rich Next.js application for testing Firebase Cloud Messaging (FCM) push notifications with a beautiful dark theme interface.
+A modern, feature-rich Next.js application for testing Firebase Cloud Messaging (FCM) push notifications with a beautiful dark theme interface. **Now available for public deployment** - users can provide their own Firebase credentials directly in the interface.
 
 ## ✨ Features
 
 - 🚀 **Send push notifications** to device tokens, multiple tokens, or topics
+- 🔐 **Dynamic Firebase configuration** - users provide their own credentials securely
 - 📝 **Pre-built message templates** for quick testing
 - 📱 **Multiple target types**:
   - Single device token
@@ -15,6 +16,7 @@ A modern, feature-rich Next.js application for testing Firebase Cloud Messaging 
 - 📐 **Dynamic textarea** that auto-resizes based on content
 - 🎯 **Sample tokens and topics** for easy testing
 - 🔧 **Built with Next.js 15, TypeScript, and React Hook Form**
+- 🌐 **Public deployment ready** - no environment variables needed
 
 ## 🎨 Interface
 
@@ -23,6 +25,7 @@ A modern, feature-rich Next.js application for testing Firebase Cloud Messaging 
 - **Dynamic form elements** that adapt to content
 - **Real-time feedback** with success/error notifications
 - **Template system** for quick payload testing
+- **Secure credential input** with masked private key field
 
 ## 🛠️ Setup Instructions
 
@@ -34,62 +37,56 @@ A modern, feature-rich Next.js application for testing Firebase Cloud Messaging 
 4. Click **Generate new private key** to download the service account JSON file
 5. Note down your project ID, client email, and private key
 
-### 2. Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```env
-FIREBASE_PROJECT_ID=your-firebase-project-id
-FIREBASE_CLIENT_EMAIL=your-service-account-email@your-project.iam.gserviceaccount.com
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY_HERE\n-----END PRIVATE KEY-----"
-```
-
-**Important:** Make sure to wrap the private key in quotes and use `\n` for line breaks.
-
-### 3. Install Dependencies
+### 2. Installation (No Environment Variables Required!)
 
 ```bash
+git clone https://github.com/yourusername/fcm-push-notification-tester.git
+cd fcm-push-notification-tester
 npm install
-# or
-yarn install
-# or
-pnpm install
-```
-
-### 4. Run the Development Server
-
-```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) in your browser and enter your Firebase credentials directly in the interface!
 
 ## 🚀 Usage
 
+### Firebase Configuration
+
+When you first open the application, you'll see a Firebase Configuration section where you need to enter:
+
+1. **Project ID**: Your Firebase project ID (found in Project Settings)
+2. **Client Email**: The service account email (ends with `.iam.gserviceaccount.com`)
+3. **Private Key**: The complete private key including BEGIN and END lines
+
+Your credentials are processed securely and are **never stored** - they're only used for the current session.
+
 ### Quick Templates
 
-Choose from pre-built templates.
+Choose from pre-built templates including:
+- Welcome messages
+- System updates  
+- Security alerts
+- Promotional offers
+- Achievement notifications
+- Test notifications
 
 ### Sending Notifications
 
-1. **Choose a template** (optional): Click any template to auto-fill the form
-2. **Enter notification details**:
+1. **Configure Firebase credentials** in the configuration section
+2. **Choose a template** (optional): Click any template to auto-fill the form
+3. **Enter notification details**:
    - **Title**: The notification title
    - **Body**: The notification message
-3. **Select target type**:
+4. **Select target type**:
    - **Single Token**: Send to one specific device
    - **Multiple Tokens**: Send to multiple devices using dynamic input fields
    - **Topic**: Send to all subscribers of a topic
-4. **Configure target**:
+5. **Configure target**:
    - For single tokens: Enter the FCM token
    - For multiple tokens: Use individual input fields with add/remove functionality
    - For topics: Enter the topic name
-5. **Add custom payload** (optional): JSON data for app-specific actions
-6. **Send**: Click the "Send Notification" button
+6. **Add custom payload** (optional): JSON data for app-specific actions
+7. **Send**: Click the "Send Notification" button
 
 ### Multiple Device Tokens
 
@@ -125,6 +122,13 @@ Track your recent notifications (last 10) with:
 - 🎯 **Target information** (shows token count for multiple tokens)
 - ❌ **Error details** (if any)
 - 🗑️ **Clear history** option
+
+## 🔐 Security
+
+- **Credentials are never stored** - they're only used during the current session
+- **Client-side processing** - your private keys never leave your browser environment
+- **HTTPS recommended** for production deployments
+- **No server-side credential storage** - fully client-configured
 
 ## 📱 Getting Device Tokens
 
@@ -164,13 +168,24 @@ messaging().subscribeToTopic('your-topic-name');
 messaging().unsubscribeFromTopic('your-topic-name');
 ```
 
+## 🌐 Deployment
+
+This application is designed for public deployment! You can deploy it to:
+
+- **Vercel**: `vercel --prod`
+- **Netlify**: Connect your GitHub repository
+- **Firebase Hosting**: `firebase deploy`
+- **Any static hosting service**
+
+No environment variables or server configuration required!
+
 ## 🔧 Troubleshooting
 
 ### Common Issues
 
-1. **"Firebase admin initialization error"**
-   - Check your environment variables
-   - Ensure the private key is properly formatted with `\n` for line breaks
+1. **"Firebase credentials are required"**
+   - Make sure all three Firebase fields are filled out
+   - Verify your project ID, client email, and private key are correct
 
 2. **"Invalid registration token"**
    - The device token might be expired or invalid
@@ -180,15 +195,25 @@ messaging().unsubscribeFromTopic('your-topic-name');
    - Topic names must match the pattern `[a-zA-Z0-9-_.~%]+`
    - No spaces or special characters except `-`, `_`, `.`, `~`, `%`
 
-4. **"All X tokens failed to receive notification"**
+4. **"Private key must contain BEGIN PRIVATE KEY"**
+   - Copy the entire private key including the BEGIN and END lines
+   - Ensure there are no extra quotes or escaping
+
+5. **"All X tokens failed to receive notification"**
    - Check that the tokens are valid and active
    - Ensure your Firebase project has proper permissions
 
-### Validation
+### Getting Firebase Credentials
 
-- Ensure your Firebase project has Cloud Messaging enabled
-- Check that your service account has the necessary permissions
-- Verify that the target device/app is properly configured to receive notifications
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Select your project
+3. Navigate to **Project Settings** (gear icon)
+4. Go to **Service accounts** tab
+5. Click **Generate new private key**
+6. Download the JSON file and extract:
+   - `project_id` → Project ID
+   - `client_email` → Client Email  
+   - `private_key` → Private Key
 
 ## 🛠️ Tech Stack
 
@@ -197,7 +222,7 @@ messaging().unsubscribeFromTopic('your-topic-name');
 - **Styling**: Tailwind CSS v4 (dark theme)
 - **UI Components**: shadcn/ui
 - **Forms**: React Hook Form + Zod validation
-- **Backend**: Firebase Admin SDK
+- **Backend**: Firebase Admin SDK (client-configured)
 - **Icons**: Lucide React
 - **State Management**: React hooks
 
@@ -211,9 +236,9 @@ messaging().unsubscribeFromTopic('your-topic-name');
 │   └── page.tsx           # Main page with dark styling
 ├── components/
 │   ├── ui/                # shadcn/ui components
-│   └── push-notification-form.tsx  # Main form component
+│   └── push-notification-form.tsx  # Main form component with credential inputs
 ├── lib/
-│   ├── firebase-admin.ts  # Firebase admin setup
+│   ├── firebase-admin.ts  # Dynamic Firebase admin setup
 │   └── utils.ts          # Utility functions
 ├── public/               # Static assets
 └── payload-testcase.md   # Comprehensive test payload examples
@@ -231,6 +256,9 @@ Check out `payload-testcase.md` for comprehensive test payload examples includin
 
 ## 🌟 Recent Updates
 
+- ✅ **Public deployment ready** - no environment variables required
+- ✅ **Dynamic Firebase configuration** with secure credential input
+- ✅ **Enhanced security** - credentials never stored server-side
 - ✅ **Dark theme implementation** for better developer experience
 - ✅ **Multiple device token support** with dynamic input fields
 - ✅ **Auto-resizing textarea** for payload input
@@ -251,4 +279,8 @@ This project is open source and available under the [MIT License](LICENSE).
 - [Firebase Cloud Messaging Documentation](https://firebase.google.com/docs/cloud-messaging)
 - [Next.js Documentation](https://nextjs.org/docs)
 - [shadcn/ui Components](https://ui.shadcn.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
+- [Firebase Console](https://console.firebase.google.com/)
+
+---
+
+**🚀 Ready to test your push notifications? Just enter your Firebase credentials and start sending!**
